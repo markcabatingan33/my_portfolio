@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Skills - Portfolio</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <style>
+    .skills-charts {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 3rem; /* Increased the gap */
+      margin-top: 2rem;
+    }
+
+    .pie-chart {
+      position: relative;
+      width: 250px;  /* Increased width */
+      height: 250px; /* Increased height */
+      border-radius: 50%;
+      background: conic-gradient(#71164A 0%, #e6e6e6 0%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Roboto', sans-serif;
+      color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .pie-chart::before {
+      content: '';
+      position: absolute;
+      width: 200px;  /* Increased the size of the inner circle */
+      height: 200px; /* Increased the size of the inner circle */
+      background: #3D716E;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .pie-chart span {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.2rem;  /* Increased font size */
+      line-height: 1.2;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 class="logo">My Portfolio</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Me</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="section">
+    <h2>Skills</h2>
+    <p>Here are some of the skills I have learned and the percentage:</p>
+
+    <div class="skills-charts">
+      <div class="pie-chart" data-percent="80" data-skill="HTML"></div>
+      <div class="pie-chart" data-percent="85" data-skill="CSS"></div>
+      <div class="pie-chart" data-percent="70" data-skill="JavaScript"></div>
+      <div class="pie-chart" data-percent="80" data-skill="PHP"></div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const charts = document.querySelectorAll(".pie-chart");
+
+      charts.forEach(chart => {
+        const percent = parseInt(chart.dataset.percent);
+        const skill = chart.dataset.skill;
+
+        const span = document.createElement("span");
+        span.innerHTML = `${skill}<br>0%`;
+        chart.appendChild(span);
+
+        let current = 0;
+
+        const interval = setInterval(() => {
+          chart.style.background = `conic-gradient(#71164A ${current}%, #e6e6e6 ${current}%)`;
+          span.innerHTML = `${skill}<br>${current}%`;
+          current++;
+          if (current > percent) clearInterval(interval);
+        }, 20);
+      });
+    });
+  </script>
+</body>
+</html>
